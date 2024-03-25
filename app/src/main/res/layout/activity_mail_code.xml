@@ -7,7 +7,7 @@
     tools:context=".activities.login.MailCodeActivity">
 
     <Button
-        android:id="@+id/mailCode_nextBtn2"
+        android:id="@+id/mailCode_nextBtn"
         style="@style/mainBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

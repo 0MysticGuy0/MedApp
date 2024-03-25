@@ -46,6 +46,14 @@
             android:ems="10"
             android:hint="пароль"
             android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/login_noPasswordBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Не помню пароль"
+            android:layout_marginHorizontal="4dp"
+            android:textAlignment="textEnd" />
     </LinearLayout>
 
     <LinearLayout

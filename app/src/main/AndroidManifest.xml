@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MedApp"
         tools:targetApi="31">
         <activity
+            android:name=".activities.other.CreateCardActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.login.PasswordCreateActivity"
             android:exported="false" />
         <activity
