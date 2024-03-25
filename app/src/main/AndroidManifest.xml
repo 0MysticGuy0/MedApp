@@ -13,6 +13,18 @@
         android:theme="@style/Theme.MedApp"
         tools:targetApi="31">
         <activity
+            android:name=".activities.login.PasswordCreateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.login.MailCodeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.login.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.login.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
