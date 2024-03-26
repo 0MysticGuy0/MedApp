@@ -72,38 +72,16 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"/>
 
-            <LinearLayout
+            <ImageButton
+                android:id="@+id/mainA_showCatalogBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="4dp"
                 android:background="@color/main_transdp"
-                android:orientation="vertical"
-                android:padding="8dp">
+                android:src="@drawable/baseline_keyboard_double_arrow_up_24" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Каталог анализов"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/mainA_catalogRV"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="4dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
-                    tools:listitem="@layout/item_category" />
-            </LinearLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
 
         </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

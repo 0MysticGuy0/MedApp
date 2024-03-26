@@ -5,6 +5,7 @@ public class Product {
     private String extraInfo;
     private ProductCategory category;
     private int number;
+    private double price;
 
     public String getName() {
         return name;
@@ -44,5 +45,13 @@ public class Product {
     public int decrementNumber(){
         number = Math.max(0,number-1);
         return number;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

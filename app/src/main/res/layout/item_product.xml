@@ -33,6 +33,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/productCard_priceTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00"
+            android:textSize="16sp"
+            android:textStyle="bold|italic" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="22dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_currency_ruble_24" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
         android:background="@color/main_color1">
 
         <ImageButton

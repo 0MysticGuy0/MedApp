@@ -9,8 +9,11 @@ import android.widget.TextView;
 import com.example.medapp.R;
 import com.example.medapp.models.Product;
 import com.example.medapp.models.User;
+import com.example.medapp.utility.Constants;
 
 import org.w3c.dom.Text;
+
+import java.text.DecimalFormat;
 
 //Класс активити для карточки продукта
 //26.03.24
@@ -24,6 +27,7 @@ public class ProductCardActivity extends AppCompatActivity {
     private TextView extraInfoTV;
     private TextView numberTV;
     private TextView categoryTV;
+    private TextView priceTV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,7 @@ public class ProductCardActivity extends AppCompatActivity {
         extraInfoTV = findViewById(R.id.productCard_extraInfoTV);
         numberTV = findViewById(R.id.productCard_numberTV);
         categoryTV = findViewById(R.id.productCard_categoryTV);
+        priceTV = findViewById(R.id.productCard_priceTV);
 
         initializeData();
 
@@ -58,6 +63,7 @@ public class ProductCardActivity extends AppCompatActivity {
         extraInfoTV.setText(product.getExtraInfo());
         numberTV.setText(product.getNumber());
         categoryTV.setText(product.getCategory().getName());
+        priceTV.setText(Constants.formatDoubleToMoney(product.getPrice()));
     }
     private void updateProductNumber(boolean increment){
         if(increment){
