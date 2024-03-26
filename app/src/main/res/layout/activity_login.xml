@@ -9,6 +9,7 @@
     <Button
         android:id="@+id/login_nextBtn"
         style="@style/mainBtnStyle"
+        android:background="@color/main_color1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Далее"
@@ -71,7 +72,7 @@
             android:layout_width="64dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:src="@drawable/baseline_chevron_left_24" />
+            app:srcCompat="@drawable/baseline_chevron_left_24" />
 
         <TextView
             android:id="@+id/textView3"

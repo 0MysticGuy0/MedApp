@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.medapp"
-        minSdk = 26
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -40,4 +40,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("com.github.dhaval2404:imagepicker:2.1")
+    implementation ("androidx.recyclerview:recyclerview:1.1.0")
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }

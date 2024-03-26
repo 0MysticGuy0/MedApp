@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/profileNavBtn"
+        android:title=""
+        android:icon="@drawable/baseline_account_box_24"/>
+
+</menu>

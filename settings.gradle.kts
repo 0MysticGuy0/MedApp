@@ -12,6 +12,7 @@ dependencyResolutionManagement {
         mavenCentral()
         maven { setUrl("https://jitpack.io") }
     }
+
 }
 
 rootProject.name = "MedApp"

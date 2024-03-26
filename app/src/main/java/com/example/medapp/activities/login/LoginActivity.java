@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.example.medapp.MainActivity;
 import com.example.medapp.R;
+import com.example.medapp.activities.main.MainAnalysesActivity;
+import com.example.medapp.models.UserCard;
 
 //Класс активити для входа в аккаунт
 //26.03.24
@@ -51,7 +53,8 @@ public class LoginActivity extends AppCompatActivity {
                 Toast toast = Toast.makeText(this, "Не введены пароль или почта!",Toast.LENGTH_LONG);
                 toast.show();
             }else{
-                Intent intent = new Intent(this, MainActivity.class);
+                Intent intent = new Intent(this, MainAnalysesActivity.class);
+                MainAnalysesActivity.userCard = new UserCard();//--------------изменитиь---------------
                 startActivity(intent);
                 finish();
             }

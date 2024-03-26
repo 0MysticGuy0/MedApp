@@ -16,23 +16,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.medapp.activities.login.PasswordCreateActivity;
+import com.example.medapp.R;
 import com.example.medapp.activities.main.MainAnalysesActivity;
 import com.example.medapp.models.UserCard;
-import com.github.dhaval2404.imagepicker.ImagePicker;
-
-import com.example.medapp.R;
 import com.example.medapp.utility.Constants;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
-//Класс активити для создания карты
+//Класс активити для редактирования карты
 //26.03.24
 //Бычковский В.Р.
-public class CreateCardActivity extends AppCompatActivity {
+public class EditCardActivity extends AppCompatActivity {
 
+    public static UserCard userCard = null;
+
+    private EditText surnameET;
+    private EditText nameET;
+    private EditText fatherNameET;
+    private EditText birthDateET;
+    private EditText extraInfoET;
     private Date selectedDate = null;
     private ImageView tempIcoIV;
     private Uri selectedIcoUri = null;
@@ -40,15 +45,17 @@ public class CreateCardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_card);
+        setContentView(R.layout.activity_edit_card);
 
-        EditText surnameET = findViewById(R.id.createCard_surnameET);
-        EditText nameET = findViewById(R.id.createCard_nameET);
-        EditText fatherNameET = findViewById(R.id.createCard_fatherNameET);
-        EditText birthDateET = findViewById(R.id.createCard_birthDateET);
-        EditText extraInfoET = findViewById(R.id.createCard_extraInfoET);
+         surnameET = findViewById(R.id.editCard_surnameET);
+         nameET = findViewById(R.id.editCard_nameET);
+         fatherNameET = findViewById(R.id.editCard_fatherNameET);
+         birthDateET = findViewById(R.id.editCard_birthDateET);
+         extraInfoET = findViewById(R.id.editCard_extraInfoET);
 
-        ImageView avatarIV = findViewById(R.id.createCard_avatarIV);//выбор фотографии
+         initializeData();
+
+        ImageView avatarIV = findViewById(R.id.editCard_avatarIV);//выбор фотографии
         avatarIV.setOnClickListener(v -> {
             tempIcoIV = avatarIV;
             ImagePicker.with(this)
@@ -58,7 +65,7 @@ public class CreateCardActivity extends AppCompatActivity {
                     .start();
         });
 
-        ImageButton selectDateBtn = findViewById(R.id.createCard_selectDateBtn); // выбор даты через календарь
+        ImageButton selectDateBtn = findViewById(R.id.editCard_selectDateBtn); // выбор даты через календарь
         selectDateBtn.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
             int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -74,7 +81,7 @@ public class CreateCardActivity extends AppCompatActivity {
             dpd.show();
         });
 
-        Button createBtn = findViewById(R.id.createCard_createBtn);//создание карточки
+        Button createBtn = findViewById(R.id.editCard_saveBtn);//сохранение изменений
         createBtn.setOnClickListener(v ->{
             String surname = surnameET.getText().toString();
             String name = nameET.getText().toString();
@@ -87,9 +94,7 @@ public class CreateCardActivity extends AppCompatActivity {
                     Toast.makeText(this, "Введите все обязательные данные(*)!",Toast.LENGTH_LONG).show();
                 }else{
                     birthDateET.setText(Constants.mainDateFormat.format(date));
-                    UserCard userCard = new UserCard(surname,name,fatherName,date,extraInfo);
                     Intent intent= new Intent(this, MainAnalysesActivity.class);
-                    MainAnalysesActivity.userCard = userCard;
                     startActivity(intent);
                 }
             }catch(ParseException ex){
@@ -97,11 +102,16 @@ public class CreateCardActivity extends AppCompatActivity {
             }
         });
 
-        TextView skipBtn = findViewById(R.id.createCard_skipBtn);//пропустить создание карты
-        skipBtn.setOnClickListener(v -> {
-            Intent intent= new Intent(this, MainAnalysesActivity.class);
-            startActivity(intent);
-        });
+    }
+
+    //проинициализировать начальные значения полей
+    private void initializeData(){
+        if(userCard == null) throw new RuntimeException("EditCardActivity: userCard==null");
+        surnameET.setText(userCard.getSurname());
+        nameET.setText(userCard.getName());
+        fatherNameET.setText(userCard.getFatherName());
+        birthDateET.setText(
+                Constants.mainDateFormat.format(userCard.getBirthDate())    );
     }
 
     //метод для добавления фотографии

@@ -13,6 +13,12 @@
         android:theme="@style/Theme.MedApp"
         tools:targetApi="31">
         <activity
+            android:name=".activities.other.EditCardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.main.MainAnalysesActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.other.CreateCardActivity"
             android:exported="false" />
         <activity

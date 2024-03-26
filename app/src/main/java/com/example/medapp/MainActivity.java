@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.example.medapp.activities.login.LoginActivity;
 import com.example.medapp.activities.login.RegisterActivity;
+import com.example.medapp.activities.main.MainAnalysesActivity;
 
 //Класс активити для главной страницы входа/регистрации
 //26.03.24
@@ -21,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
         Button loginBtn = findViewById(R.id.enter_loginBtn);
         loginBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(this, LoginActivity.class);
+            //Intent intent = new Intent(this, LoginActivity.class);
+            Intent intent = new Intent(this, MainAnalysesActivity.class);
             startActivity(intent);
         });
 
