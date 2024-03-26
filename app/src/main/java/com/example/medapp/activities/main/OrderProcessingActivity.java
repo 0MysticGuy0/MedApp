@@ -9,40 +9,40 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.medapp.MainActivity;
 import com.example.medapp.R;
 import com.example.medapp.models.User;
 
-//Класс активити для корзины
+//Класс активити для оформления заказа(настройки анализов)
 //26.03.24
 //Бычковский В.Р.
-public class CartActivity extends AppCompatActivity {
+public class OrderProcessingActivity extends AppCompatActivity {
     public static User user = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart);
-        ImageButton backBtn = findViewById(R.id.cart_backBtn);//кнопка назад
+        setContentView(R.layout.activity_order_processing);
+        ImageButton backBtn = findViewById(R.id.orderProcessing_backBtn);//кнопка назад
         backBtn.setOnClickListener(v -> {
             finish();
         });
 
-        TextView sumPriceTV = findViewById(R.id.cart_sumPriceTV);
-        RecyclerView cartRV = findViewById(R.id.cart_cartRV);
+        TextView sumPriceTV = findViewById(R.id.orderProcessing_sumPriceTV);
 
         initializeData();
 
-        Button clearCartBtn = findViewById(R.id.cart_clearBtn);
+        RecyclerView analysesRV = findViewById(R.id.orderProcessing_analysesRV);
 
-        Button nextBtn = findViewById(R.id.cart_nextBtn);
-        nextBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(this, OrderProcessingActivity.class);
-            OrderProcessingActivity.user = user;
+        Button finishBtn = findViewById(R.id.orderProcessing_finishBtn);
+        finishBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SuccessfullyPaidActivity.class);
             startActivity(intent);
+            finish();
         });
     }
 
     private void initializeData(){
-        if(user == null) throw new RuntimeException("CartActivity: user==null");
+
     }
 }
