@@ -21,14 +21,14 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        ImageButton backBtn = findViewById(R.id.register_backBtn);
+        ImageButton backBtn = findViewById(R.id.register_backBtn);// кнопка назад
         backBtn.setOnClickListener(v -> {
             finish();
         });
 
         EditText emailET = findViewById(R.id.register_mailET);
 
-        Button nextBtn = findViewById(R.id.register_nextBtn);
+        Button nextBtn = findViewById(R.id.register_nextBtn);//переход дальше
         nextBtn.setOnClickListener(v -> {
             String email = emailET.getText().toString();
 

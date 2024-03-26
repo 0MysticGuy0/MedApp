@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.medapp.MainActivity;
 import com.example.medapp.R;
+import com.example.medapp.activities.other.CreateCardActivity;
 
 //Класс активити для создания пароля
 //26.03.24
@@ -27,7 +28,7 @@ public class PasswordCreateActivity extends AppCompatActivity {
         if(email == null)
             throw new RuntimeException("PasswordCreateActivity: email==null");
 
-        ImageButton homeBtn = findViewById(R.id.paswdCreate_homeBtn);
+        ImageButton homeBtn = findViewById(R.id.paswdCreate_homeBtn);//переход на главную входа
         homeBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -37,14 +38,14 @@ public class PasswordCreateActivity extends AppCompatActivity {
         EditText paswdET = findViewById(R.id.paswdCreate_paswdET);
         EditText paswdConfirmET = findViewById(R.id.paswdCreate_paswdConfirmET);
 
-        TextView skipBtn = findViewById(R.id.paswdCreate_skipBtn);
+        TextView skipBtn = findViewById(R.id.paswdCreate_skipBtn);//пропустить ввод пароля
         skipBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, CreateCardActivity.class);
             startActivity(intent);
             finish();
         });
 
-        Button nextBtn = findViewById(R.id.paswdCreate_nextBtn);
+        Button nextBtn = findViewById(R.id.paswdCreate_nextBtn);//переход дальше
         nextBtn.setOnClickListener(v -> {
             String paswd = paswdET.getText().toString();
             String paswdConfirm = paswdConfirmET.getText().toString();
@@ -55,7 +56,7 @@ public class PasswordCreateActivity extends AppCompatActivity {
                 Toast.makeText(this, "Введенные пароли не совпадают!",Toast.LENGTH_LONG).show();
             }
             else{
-                Intent intent = new Intent(this, MainActivity.class);
+                Intent intent = new Intent(this, CreateCardActivity.class);
                 startActivity(intent);
                 finish();
             }

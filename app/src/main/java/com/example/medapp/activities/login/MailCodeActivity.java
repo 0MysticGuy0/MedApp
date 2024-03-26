@@ -27,7 +27,7 @@ public class MailCodeActivity extends AppCompatActivity {
         if(email == null)
             throw new RuntimeException("MailCodeActivity: email==null");
 
-        ImageButton homeBtn = findViewById(R.id.mailCode_homeBtn);
+        ImageButton homeBtn = findViewById(R.id.mailCode_homeBtn);//возврат на главную входа
         homeBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -39,7 +39,7 @@ public class MailCodeActivity extends AppCompatActivity {
 
         EditText mailCodeET = findViewById(R.id.mailCode_mailCodeET);
 
-        Button nextBtn = findViewById(R.id.mailCode_nextBtn);
+        Button nextBtn = findViewById(R.id.mailCode_nextBtn);//переход далее
         nextBtn.setOnClickListener(v -> {
             String code = mailCodeET.getText().toString();
             correctCode=code;//----------------------------убрать-------------

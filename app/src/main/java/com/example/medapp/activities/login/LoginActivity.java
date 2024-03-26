@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ImageButton backBtn = findViewById(R.id.login_backBtn);
+        ImageButton backBtn = findViewById(R.id.login_backBtn);//кнопка назад
         backBtn.setOnClickListener(v -> {
             finish();
         });
@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         EditText emailET = findViewById(R.id.login_mailET);
         EditText passwdET = findViewById(R.id.login_paswdET);
 
-        TextView noPasswordBtn = findViewById(R.id.login_noPasswordBtn);
+        TextView noPasswordBtn = findViewById(R.id.login_noPasswordBtn);//пропустить ввод пароля
         noPasswordBtn.setOnClickListener(v -> {
             String email = emailET.getText().toString();
             if(email.length() != 0) {
@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button nextBtn = findViewById(R.id.login_nextBtn);
+        Button nextBtn = findViewById(R.id.login_nextBtn);//переход дальше
         nextBtn.setOnClickListener(v -> {
             String email = emailET.getText().toString();
             String passwd = passwdET.getText().toString();
