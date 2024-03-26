@@ -16,8 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.medapp.activities.login.PasswordCreateActivity;
 import com.example.medapp.activities.main.MainAnalysesActivity;
+import com.example.medapp.models.User;
 import com.example.medapp.models.UserCard;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
@@ -33,6 +33,7 @@ import java.util.Date;
 //Бычковский В.Р.
 public class CreateCardActivity extends AppCompatActivity {
 
+    public static User user;
     private Date selectedDate = null;
     private ImageView tempIcoIV;
     private Uri selectedIcoUri = null;
@@ -88,9 +89,11 @@ public class CreateCardActivity extends AppCompatActivity {
                 }else{
                     birthDateET.setText(Constants.mainDateFormat.format(date));
                     UserCard userCard = new UserCard(surname,name,fatherName,date,extraInfo);
+                    user.setUserCard(userCard);
                     Intent intent= new Intent(this, MainAnalysesActivity.class);
-                    MainAnalysesActivity.userCard = userCard;
+                    MainAnalysesActivity.user = user;
                     startActivity(intent);
+                    finish();
                 }
             }catch(ParseException ex){
                 Toast.makeText(this, "Введите корректную дату(дд.мм.гггг)!",Toast.LENGTH_LONG).show();
@@ -100,7 +103,9 @@ public class CreateCardActivity extends AppCompatActivity {
         TextView skipBtn = findViewById(R.id.createCard_skipBtn);//пропустить создание карты
         skipBtn.setOnClickListener(v -> {
             Intent intent= new Intent(this, MainAnalysesActivity.class);
+            MainAnalysesActivity.user = user;
             startActivity(intent);
+            finish();
         });
     }
 

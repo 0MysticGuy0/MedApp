@@ -13,19 +13,20 @@ import android.widget.Toast;
 import com.example.medapp.MainActivity;
 import com.example.medapp.R;
 import com.example.medapp.activities.other.CreateCardActivity;
+import com.example.medapp.models.User;
 
 //Класс активити для создания пароля
 //26.03.24
 //Бычковский В.Р.
 public class PasswordCreateActivity extends AppCompatActivity {
 
-    public static String email;
+    public static User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_create);
-        if(email == null)
+        if(user == null || user.getEmail() == null)
             throw new RuntimeException("PasswordCreateActivity: email==null");
 
         ImageButton homeBtn = findViewById(R.id.paswdCreate_homeBtn);//переход на главную входа
@@ -41,6 +42,7 @@ public class PasswordCreateActivity extends AppCompatActivity {
         TextView skipBtn = findViewById(R.id.paswdCreate_skipBtn);//пропустить ввод пароля
         skipBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, CreateCardActivity.class);
+            CreateCardActivity.user = user;
             startActivity(intent);
             finish();
         });
@@ -56,7 +58,9 @@ public class PasswordCreateActivity extends AppCompatActivity {
                 Toast.makeText(this, "Введенные пароли не совпадают!",Toast.LENGTH_LONG).show();
             }
             else{
+                user.setPassword(paswd);
                 Intent intent = new Intent(this, CreateCardActivity.class);
+                CreateCardActivity.user = user;
                 startActivity(intent);
                 finish();
             }

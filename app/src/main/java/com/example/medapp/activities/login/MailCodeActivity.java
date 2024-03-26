@@ -12,19 +12,20 @@ import android.widget.Toast;
 
 import com.example.medapp.MainActivity;
 import com.example.medapp.R;
+import com.example.medapp.models.User;
 
 //Класс активити для ввода кода из почты
 //26.03.24
 //Бычковский В.Р.
 public class MailCodeActivity extends AppCompatActivity {
-    public static String email;
+    public static User user;
     private String correctCode = "123321";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mail_code);
-        if(email == null)
+        if(user == null || user.getEmail() == null)
             throw new RuntimeException("MailCodeActivity: email==null");
 
         ImageButton homeBtn = findViewById(R.id.mailCode_homeBtn);//возврат на главную входа
@@ -35,7 +36,7 @@ public class MailCodeActivity extends AppCompatActivity {
         });
 
         TextView emailTV = findViewById(R.id.mailCode_emailTV);
-        emailTV.setText(email);
+        emailTV.setText(user.getEmail());
 
         EditText mailCodeET = findViewById(R.id.mailCode_mailCodeET);
 
@@ -51,7 +52,7 @@ public class MailCodeActivity extends AppCompatActivity {
             }
             else{
                 Intent intent= new Intent(this, PasswordCreateActivity.class);
-                PasswordCreateActivity.email = email;
+                PasswordCreateActivity.user = user;
                 startActivity(intent);
             }
         });

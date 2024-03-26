@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.medapp.MainActivity;
 import com.example.medapp.R;
 import com.example.medapp.activities.main.MainAnalysesActivity;
+import com.example.medapp.models.User;
 import com.example.medapp.models.UserCard;
 
 //Класс активити для входа в аккаунт
@@ -35,9 +36,10 @@ public class LoginActivity extends AppCompatActivity {
         TextView noPasswordBtn = findViewById(R.id.login_noPasswordBtn);//пропустить ввод пароля
         noPasswordBtn.setOnClickListener(v -> {
             String email = emailET.getText().toString();
+            User user = new User(email);
             if(email.length() != 0) {
                 Intent intent = new Intent(this, MailCodeActivity.class);
-                MailCodeActivity.email = email;
+                MailCodeActivity.user = user;
                 startActivity(intent);
             }else{
                 Toast.makeText(this, "Введите почту!",Toast.LENGTH_LONG).show();
@@ -54,7 +56,9 @@ public class LoginActivity extends AppCompatActivity {
                 toast.show();
             }else{
                 Intent intent = new Intent(this, MainAnalysesActivity.class);
-                MainAnalysesActivity.userCard = new UserCard();//--------------изменитиь---------------
+                User user = new User(email);
+                user.setPassword(passwd);
+                MainAnalysesActivity.user = user;//--------------изменитиь---------------
                 startActivity(intent);
                 finish();
             }

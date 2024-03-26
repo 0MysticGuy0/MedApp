@@ -13,11 +13,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.medapp.R;
 import com.example.medapp.activities.main.MainAnalysesActivity;
+import com.example.medapp.models.User;
 import com.example.medapp.models.UserCard;
 import com.example.medapp.utility.Constants;
 import com.github.dhaval2404.imagepicker.ImagePicker;
@@ -31,7 +31,7 @@ import java.util.Date;
 //Бычковский В.Р.
 public class EditCardActivity extends AppCompatActivity {
 
-    public static UserCard userCard = null;
+    public static User user = null;
 
     private EditText surnameET;
     private EditText nameET;
@@ -46,6 +46,10 @@ public class EditCardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_card);
+        ImageButton backBtn = findViewById(R.id.editCard_backBtn);//кнопка назад
+        backBtn.setOnClickListener(v -> {
+            finish();
+        });
 
          surnameET = findViewById(R.id.editCard_surnameET);
          nameET = findViewById(R.id.editCard_nameET);
@@ -81,8 +85,8 @@ public class EditCardActivity extends AppCompatActivity {
             dpd.show();
         });
 
-        Button createBtn = findViewById(R.id.editCard_saveBtn);//сохранение изменений
-        createBtn.setOnClickListener(v ->{
+        Button saveBtn = findViewById(R.id.editCard_saveBtn);//сохранение изменений
+        saveBtn.setOnClickListener(v ->{
             String surname = surnameET.getText().toString();
             String name = nameET.getText().toString();
             String fatherName = fatherNameET.getText().toString();
@@ -94,8 +98,19 @@ public class EditCardActivity extends AppCompatActivity {
                     Toast.makeText(this, "Введите все обязательные данные(*)!",Toast.LENGTH_LONG).show();
                 }else{
                     birthDateET.setText(Constants.mainDateFormat.format(date));
+
+                    UserCard userCard = user.getUserCard();
+                    userCard.setBirthDate(date);
+                    userCard.setName(name);
+                    userCard.setSurname(surname);
+                    userCard.setFatherName(fatherName);
+                    userCard.setExtraInfo(extraInfo);
+                    Toast.makeText(this, "Данные сохранены",Toast.LENGTH_LONG).show();
+
                     Intent intent= new Intent(this, MainAnalysesActivity.class);
+                    MainAnalysesActivity.user = user;
                     startActivity(intent);
+                    finish();
                 }
             }catch(ParseException ex){
                 Toast.makeText(this, "Введите корректную дату(дд.мм.гггг)!",Toast.LENGTH_LONG).show();
@@ -106,12 +121,14 @@ public class EditCardActivity extends AppCompatActivity {
 
     //проинициализировать начальные значения полей
     private void initializeData(){
-        if(userCard == null) throw new RuntimeException("EditCardActivity: userCard==null");
+        UserCard userCard = user.getUserCard();
+        if(user == null || userCard == null) throw new RuntimeException("EditCardActivity: userCard==null");
         surnameET.setText(userCard.getSurname());
         nameET.setText(userCard.getName());
         fatherNameET.setText(userCard.getFatherName());
         birthDateET.setText(
                 Constants.mainDateFormat.format(userCard.getBirthDate())    );
+        extraInfoET.setText(userCard.getExtraInfo());
     }
 
     //метод для добавления фотографии

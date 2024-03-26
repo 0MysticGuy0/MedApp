@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.medapp.MainActivity;
 import com.example.medapp.R;
+import com.example.medapp.models.User;
 
 //Класс активити для регистрации(ввода имейла)
 //26.03.24
@@ -37,7 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
                 toast.show();
             }else{
                 Intent intent = new Intent(this, MailCodeActivity.class);
-                MailCodeActivity.email = email;
+                MailCodeActivity.user = new User(email);
                 startActivity(intent);
             }
         });
