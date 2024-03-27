@@ -45,8 +45,8 @@ public class MailCodeActivity extends AppCompatActivity {
 
 
         initializeData();
-        startTimer(timerTV);
         correctCode = MyUtility.serverAPI.getMailCode(user.getEmail());
+        startTimer(timerTV);
 
         Button nextBtn = findViewById(R.id.mailCode_nextBtn);//переход далее
         nextBtn.setOnClickListener(v -> {
@@ -78,6 +78,7 @@ public class MailCodeActivity extends AppCompatActivity {
             }
             @Override
             public void onFinish() {
+                correctCode = MyUtility.serverAPI.getMailCode(user.getEmail());
                 startTimer(timerTV);
             }
         };
