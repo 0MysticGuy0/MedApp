@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MedApp</string>
+    <string name="error_emailPattern">Email должен соответсвовать паттерну "name@domenname.ru". name и demenname состоят только из маленьких латинских букв!</string>
 </resources>

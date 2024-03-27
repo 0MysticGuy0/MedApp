@@ -60,6 +60,5 @@
         android:orientation="vertical"
         android:paddingTop="4dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
         tools:listitem="@layout/item_products_in_category" />
 </LinearLayout>

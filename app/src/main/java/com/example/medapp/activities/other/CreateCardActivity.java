@@ -22,7 +22,7 @@ import com.example.medapp.models.UserCard;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import com.example.medapp.R;
-import com.example.medapp.utility.Constants;
+import com.example.medapp.utility.MyUtility;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -69,7 +69,7 @@ public class CreateCardActivity extends AppCompatActivity {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                     selectedDate = new Date(year - 1900, month, dayOfMonth);
-                    birthDateET.setText(Constants.mainDateFormat.format(selectedDate));
+                    birthDateET.setText(MyUtility.mainDateFormat.format(selectedDate));
                 }
             }, year, month, day);
             dpd.show();
@@ -83,11 +83,11 @@ public class CreateCardActivity extends AppCompatActivity {
             String birthdate = birthDateET.getText().toString();
             String extraInfo = extraInfoET.getText().toString();
             try {
-                Date date = Constants.mainDateFormat.parse(birthdate);
+                Date date = MyUtility.mainDateFormat.parse(birthdate);
                 if(surname.length()==0 || name.length()==0 ||  birthdate.length()==0 || date == null){
                     Toast.makeText(this, "Введите все обязательные данные(*)!",Toast.LENGTH_LONG).show();
                 }else{
-                    birthDateET.setText(Constants.mainDateFormat.format(date));
+                    birthDateET.setText(MyUtility.mainDateFormat.format(date));
                     UserCard userCard = new UserCard(surname,name,fatherName,date,extraInfo);
                     user.setUserCard(userCard);
                     Intent intent= new Intent(this, MainAnalysesActivity.class);

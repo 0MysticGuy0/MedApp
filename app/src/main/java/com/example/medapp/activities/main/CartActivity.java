@@ -33,6 +33,9 @@ public class CartActivity extends AppCompatActivity {
         initializeData();
 
         Button clearCartBtn = findViewById(R.id.cart_clearBtn);
+        clearCartBtn.setOnClickListener(v -> {
+            user.clearCart();
+        });
 
         Button nextBtn = findViewById(R.id.cart_nextBtn);
         nextBtn.setOnClickListener(v -> {
@@ -44,5 +47,6 @@ public class CartActivity extends AppCompatActivity {
 
     private void initializeData(){
         if(user == null) throw new RuntimeException("CartActivity: user==null");
+        user.setContext(this);
     }
 }

@@ -1,5 +1,10 @@
 package com.example.medapp.models;
 
+import android.content.Context;
+
+import com.example.medapp.interfaces.UserService;
+import com.example.medapp.services.UserServiceImpl;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,10 +16,12 @@ public class User {
     private String password;
     private UserCard userCard;
     private List<Product> shoppingCart;
+    private UserService service = new UserServiceImpl();
+    private Context context;
 
-    public User(String email) {
+    public User(Context context, String email) {
         this.email = email;
-        shoppingCart = new ArrayList<>();
+        shoppingCart = service.loadCart(context);
     }
 
     public String getEmail() {
@@ -41,6 +48,10 @@ public class User {
         this.password = password;
     }
 
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
     public void setUserCard(UserCard userCard) {
         this.userCard = userCard;
     }
@@ -49,13 +60,24 @@ public class User {
             shoppingCart.add(product);
         }
         product.incrementNumber();
+        updateCartData();
     }
     public void removeProduct(Product product){
         if(shoppingCart.contains(product)){
-            int n =product.decrementNumber();
+            int n = product.decrementNumber();
             if(n==0){
                 shoppingCart.remove(product);
             }
+            updateCartData();
+        }
+    }
+    public void clearCart(){
+        shoppingCart.clear();
+        updateCartData();
+    }
+    private void updateCartData(){
+        if(context != null) {
+            service.saveCart(context,shoppingCart);
         }
     }
 }

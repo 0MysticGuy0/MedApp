@@ -13,8 +13,11 @@ import android.widget.TextView;
 import com.example.medapp.R;
 import com.example.medapp.activities.other.CreateCardActivity;
 import com.example.medapp.activities.other.EditCardActivity;
+import com.example.medapp.adapters.ArticleRecyclerAdapter;
+import com.example.medapp.adapters.ProductsInCategoryRecyclerAdapter;
 import com.example.medapp.models.User;
 import com.example.medapp.models.UserCard;
+import com.example.medapp.utility.InMemoryStorage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -26,6 +29,8 @@ public class MainAnalysesActivity extends AppCompatActivity {
     private SwipeRefreshLayout swipeRefreshLayout;
     public static User user = null;
 
+    private ArticleRecyclerAdapter articleAdapter;
+    private ProductsInCategoryRecyclerAdapter catalogAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +45,7 @@ public class MainAnalysesActivity extends AppCompatActivity {
             }
         });
 
-        EditText searchBtn = findViewById(R.id.mainA_searchBtn);
+        EditText searchBtn = findViewById(R.id.mainA_searchBtn); //поиск
         searchBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainSearchActivity.class);
             MainSearchActivity.user = user;
@@ -48,6 +53,10 @@ public class MainAnalysesActivity extends AppCompatActivity {
         });
 
         RecyclerView newsRV = findViewById(R.id.mainA_newsRV);
+        articleAdapter = new ArticleRecyclerAdapter(this, InMemoryStorage.articles);
+        newsRV.setAdapter(articleAdapter);
+
+        catalogAdapter = new ProductsInCategoryRecyclerAdapter(this,InMemoryStorage.categories,InMemoryStorage.products, user);
 
         ImageButton showCatalogBtn = findViewById(R.id.mainA_showCatalogBtn);//всплывающее окно с каталогом продуктов
         showCatalogBtn.setOnClickListener(v -> {
@@ -69,6 +78,7 @@ public class MainAnalysesActivity extends AppCompatActivity {
             });
 
             RecyclerView catalogRV = bottomSheetDialog.findViewById(R.id.bsdCatalog_catalogRV);
+            catalogRV.setAdapter(catalogAdapter);
 
             bottomSheetDialog.show();
         });
@@ -96,5 +106,9 @@ public class MainAnalysesActivity extends AppCompatActivity {
     //обновление данных об акциях/новостях
     private void updateData(){
         System.out.println("Обновление данных...");
+        articleAdapter.notifyDataSetChanged();
+        if(catalogAdapter != null) {
+            catalogAdapter.notifyDataSetChanged();
+        }
     }
 }

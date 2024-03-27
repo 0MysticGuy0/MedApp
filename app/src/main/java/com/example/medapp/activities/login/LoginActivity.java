@@ -10,16 +10,19 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.medapp.MainActivity;
 import com.example.medapp.R;
+import com.example.medapp.interfaces.Encryptor;
+import com.example.medapp.utility.ActivityHelper;
 import com.example.medapp.activities.main.MainAnalysesActivity;
 import com.example.medapp.models.User;
-import com.example.medapp.models.UserCard;
+import com.example.medapp.utility.MyPasswordEncryptor;
+import com.example.medapp.utility.MyUtility;
 
 //Класс активити для входа в аккаунт
 //26.03.24
 //Бычковский В.Р.
 public class LoginActivity extends AppCompatActivity {
+    private Encryptor encryptor = new MyPasswordEncryptor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         TextView noPasswordBtn = findViewById(R.id.login_noPasswordBtn);//пропустить ввод пароля
         noPasswordBtn.setOnClickListener(v -> {
             String email = emailET.getText().toString();
-            User user = new User(email);
+            User user = new User(this, email);
             if(email.length() != 0) {
                 Intent intent = new Intent(this, MailCodeActivity.class);
                 MailCodeActivity.user = user;
@@ -51,12 +54,20 @@ public class LoginActivity extends AppCompatActivity {
             String email = emailET.getText().toString();
             String passwd = passwdET.getText().toString();
 
+
             if(email.length() == 0 || passwd.length() == 0){
                 Toast toast = Toast.makeText(this, "Не введены пароль или почта!",Toast.LENGTH_LONG);
                 toast.show();
-            }else{
+            }else if(!MyUtility.isCorrectEmail(email)){
+                ActivityHelper.createErrorMessagePopup(this,getResources().getString(R.string.error_emailPattern));
+            }
+            else{
+                passwd = encryptor.encrypt(passwd);
+
+                //todo: запрос на плучение пользователя
+
                 Intent intent = new Intent(this, MainAnalysesActivity.class);
-                User user = new User(email);
+                User user = new User(this,email);
                 user.setPassword(passwd);
                 MainAnalysesActivity.user = user;//--------------изменитиь---------------
                 startActivity(intent);

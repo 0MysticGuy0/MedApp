@@ -9,11 +9,7 @@ import android.widget.TextView;
 import com.example.medapp.R;
 import com.example.medapp.models.Product;
 import com.example.medapp.models.User;
-import com.example.medapp.utility.Constants;
-
-import org.w3c.dom.Text;
-
-import java.text.DecimalFormat;
+import com.example.medapp.utility.MyUtility;
 
 //Класс активити для карточки продукта
 //26.03.24
@@ -63,7 +59,7 @@ public class ProductCardActivity extends AppCompatActivity {
         extraInfoTV.setText(product.getExtraInfo());
         numberTV.setText(product.getNumber());
         categoryTV.setText(product.getCategory().getName());
-        priceTV.setText(Constants.formatDoubleToMoney(product.getPrice()));
+        priceTV.setText(MyUtility.formatDoubleToMoney(product.getPrice()));
     }
     private void updateProductNumber(boolean increment){
         if(increment){
