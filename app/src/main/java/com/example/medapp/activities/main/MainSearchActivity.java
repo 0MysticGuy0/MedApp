@@ -3,11 +3,13 @@ package com.example.medapp.activities.main;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.medapp.R;
+import com.example.medapp.activities.other.CreateCardActivity;
 import com.example.medapp.adapters.ProductRecyclerAdapter;
 import com.example.medapp.models.User;
 import com.example.medapp.utility.InMemoryStorage;
@@ -21,6 +23,9 @@ public class MainSearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_search);
         ImageButton backBtn = findViewById(R.id.mainASearch_backBtn);//кнопка назад
         backBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainAnalysesActivity.class);
+            MainAnalysesActivity.user = user;
+            startActivity(intent);
             finish();
         });
 
