@@ -8,12 +8,24 @@ import java.util.List;
 //26.03.24
 //Бычковский В.Р.
 public class ProductCategory implements Serializable {
+    private  Long id;
     private String name;
     private static List<ProductCategory> allCategories = new ArrayList<>();
 
     public ProductCategory(String name) {
         this.name = name;
         allCategories.add(this);
+    }
+
+    public ProductCategory() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
