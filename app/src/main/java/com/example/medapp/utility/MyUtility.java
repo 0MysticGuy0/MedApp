@@ -19,6 +19,7 @@ public abstract class MyUtility {
     private static DecimalFormat moneyFormat = new DecimalFormat("#0.00");
     private static final String emailPattern = "([a-z])+@([a-z])+\\.ru";
     public static final String cartFileName = "cart-data.dat";
+    public static final String cardsFileName = "cards-data.dat";
 
     public static String formatDoubleToMoney(Double sum){
         return moneyFormat.format(sum);

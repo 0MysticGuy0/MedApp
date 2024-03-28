@@ -36,6 +36,7 @@ public class MainAnalysesActivity extends AppCompatActivity {
     private ArticleRecyclerAdapter articleAdapter;
     private ProductsInCategoryRecyclerAdapter catalogAdapter;
     private ServerAPIHelper.APIrequestResponce getArticlesResponce;
+    private ServerAPIHelper.APIrequestResponce getCategoriesResponce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,7 @@ public class MainAnalysesActivity extends AppCompatActivity {
 
         MyUtility.serverAPI.getAllArticles(getArticlesResponce);
 
-        catalogAdapter = new ProductsInCategoryRecyclerAdapter(this,InMemoryStorage.categories,InMemoryStorage.products, user);
+        catalogAdapter = new ProductsInCategoryRecyclerAdapter(this,InMemoryStorage.getCategories(),InMemoryStorage.getProducts(), user);
 
         ImageButton showCatalogBtn = findViewById(R.id.mainA_showCatalogBtn);//всплывающее окно с каталогом продуктов
         showCatalogBtn.setOnClickListener(v -> {
@@ -82,6 +83,7 @@ public class MainAnalysesActivity extends AppCompatActivity {
             ImageButton closeBtn = bottomSheetDialog.findViewById(R.id.bsdCatalog_closeBtn);
             closeBtn.setOnClickListener(bsd_v -> {
                 bottomSheetDialog.cancel();
+                getCategoriesResponce = null;
             });
             TextView productsNumTV = bottomSheetDialog.findViewById(R.id.bsdCatalog_productsNumTV);
 
@@ -94,6 +96,14 @@ public class MainAnalysesActivity extends AppCompatActivity {
 
             RecyclerView catalogRV = bottomSheetDialog.findViewById(R.id.bsdCatalog_catalogRV);
             catalogRV.setAdapter(catalogAdapter);
+            getCategoriesResponce = ((success) -> {
+                if(success){
+                    newsRV.post(() -> {
+                        System.out.println("+__+_+_+_+_+_+_");
+                        catalogAdapter.setData(InMemoryStorage.getCategories());
+                    });
+                }
+            });
 
             bottomSheetDialog.show();
         });
@@ -122,5 +132,7 @@ public class MainAnalysesActivity extends AppCompatActivity {
     private void updateData(){
         System.out.println("Обновление данных...");
         MyUtility.serverAPI.getAllArticles(getArticlesResponce);
+        if(getCategoriesResponce != null)
+            MyUtility.serverAPI.getAllCategories(getCategoriesResponce);
     }
 }

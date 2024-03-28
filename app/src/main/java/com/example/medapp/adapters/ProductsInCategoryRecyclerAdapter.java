@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medapp.R;
+import com.example.medapp.models.Article;
 import com.example.medapp.models.Product;
 import com.example.medapp.models.ProductCategory;
 import com.example.medapp.models.User;
@@ -23,7 +24,7 @@ public class ProductsInCategoryRecyclerAdapter extends RecyclerView.Adapter<Prod
 
     private final LayoutInflater inflater;
     private final List<Product> products;
-    private final List<ProductCategory> categories;
+    private List<ProductCategory> categories;
     private User user;
 
     public ProductsInCategoryRecyclerAdapter(Context context, List<ProductCategory> categories, List<Product> products, User user) {
@@ -50,6 +51,11 @@ public class ProductsInCategoryRecyclerAdapter extends RecyclerView.Adapter<Prod
     @Override
     public int getItemCount() {
         return categories.size();
+    }
+
+    public void setData(List<ProductCategory> categories) {
+        this.categories = categories;
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

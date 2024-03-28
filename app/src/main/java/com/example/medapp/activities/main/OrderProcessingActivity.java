@@ -40,7 +40,7 @@ public class OrderProcessingActivity extends AppCompatActivity {
         initializeData();
 
         RecyclerView analysesRV = findViewById(R.id.orderProcessing_analysesRV);
-        AnalysisProductRecyclerAdapter analysisAdapter = new AnalysisProductRecyclerAdapter(this, InMemoryStorage.products,user);
+        AnalysisProductRecyclerAdapter analysisAdapter = new AnalysisProductRecyclerAdapter(this, InMemoryStorage.getProducts(),user);
         analysesRV.setAdapter(analysisAdapter);
 
         Button finishBtn = findViewById(R.id.orderProcessing_finishBtn);

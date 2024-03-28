@@ -2,7 +2,9 @@ package com.example.medapp.models;
 
 import android.content.Context;
 
+import com.example.medapp.interfaces.UserCardService;
 import com.example.medapp.interfaces.UserService;
+import com.example.medapp.services.UserCardServiceImpl;
 import com.example.medapp.services.UserServiceImpl;
 
 import java.util.ArrayList;
@@ -17,11 +19,13 @@ public class User {
     private UserCard userCard;
     private List<Product> shoppingCart;
     private UserService service = new UserServiceImpl();
+    private UserCardService userCardService = new UserCardServiceImpl();
     private Context context;
 
     public User(Context context, String email) {
         this.email = email;
         shoppingCart = service.loadCart(context);
+        userCard = userCardService.loadCart(context).get(0);
     }
 
     public String getEmail() {
@@ -54,6 +58,9 @@ public class User {
 
     public void setUserCard(UserCard userCard) {
         this.userCard = userCard;
+        List<UserCard> cards = new ArrayList<>();
+        cards.add(userCard);
+        userCardService.saveCart(context,cards);
     }
     public void addProduct(Product product){
         if(!shoppingCart.contains(product)){

@@ -15,16 +15,12 @@ import java.util.List;
 //Бычковский В.Р.
 public class InMemoryStorage {
     private static List<Article> articles = new ArrayList<>();
-    public static List<ProductCategory> categories = new ArrayList<>();
-    public static List<Product> products = new ArrayList<>();
+    private static List<ProductCategory> categories = new ArrayList<>();
+    private static List<Product> products = new ArrayList<>();
 
     static{
         try {
-            categories.add(new ProductCategory("Анализы"));
-            categories.add(new ProductCategory("Лекарства"));
-            categories.add(new ProductCategory("Устройства"));
-            categories.add(new ProductCategory("Продукты"));
-            categories.add(new ProductCategory("Другое"));
+
         }catch (NullPointerException ex){
             ex.printStackTrace();
         }
@@ -38,5 +34,21 @@ public class InMemoryStorage {
 
     public static List<Article> getArticles() {
         return articles;
+    }
+
+    public static List<ProductCategory> getCategories() {
+        return categories;
+    }
+
+    public static void setCategories(List<ProductCategory> categories) {
+        InMemoryStorage.categories = categories;
+    }
+
+    public static List<Product> getProducts() {
+        return products;
+    }
+
+    public static void setProducts(List<Product> products) {
+        InMemoryStorage.products = products;
     }
 }
