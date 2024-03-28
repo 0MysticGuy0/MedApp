@@ -42,4 +42,7 @@ dependencies {
     implementation ("com.github.dhaval2404:imagepicker:2.1")
     implementation ("androidx.recyclerview:recyclerview:1.1.0")
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation ("com.fasterxml.jackson.core:jackson-databind:2.17.0")
+
 }

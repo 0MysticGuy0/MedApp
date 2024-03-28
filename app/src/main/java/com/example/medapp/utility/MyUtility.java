@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 //Класс для хранения различных часто используемых констант
 //26.03.24
@@ -27,6 +28,9 @@ public abstract class MyUtility {
     }
     public static final String formatDate(LocalDate date){
         return mainDateFrormatter.format(date);
+    }
+    public static final String formatDate(Date date){
+        return mainDateFormat.format(date);
     }
 
     static{

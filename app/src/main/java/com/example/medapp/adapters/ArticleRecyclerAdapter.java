@@ -21,7 +21,7 @@ import java.util.List;
 public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecyclerAdapter.ViewHolder>{
 
     private final LayoutInflater inflater;
-    private final List<Article> articels;
+    private List<Article> articels;
 
     public ArticleRecyclerAdapter(Context context, List<Article> articels) {
         this.articels = articels;
@@ -43,6 +43,10 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
     @Override
     public int getItemCount() {
         return articels.size();
+    }
+    public void setData(List<Article> articels){
+        this.articels = articels;
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

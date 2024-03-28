@@ -1,18 +1,25 @@
 package com.example.medapp.models;
 
 import java.time.LocalDate;
+import java.util.Date;
 
+//Класс для новостей
+//27.03.24
+//Бычковский В.Р.
 public class Article {
     private int id;
     private String name;
-    private LocalDate date;
+    private Date date;
 
-    public Article(String name, LocalDate date) {
+    public Article() {
+    }
+
+    public Article(String name, Date date) {
         this.name = name;
         this.date = date;
     }
 
-    public Article(int id, String name, LocalDate date) {
+    public Article(int id, String name, Date date) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -26,11 +33,11 @@ public class Article {
         this.name = name;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

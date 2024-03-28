@@ -18,8 +18,12 @@ import com.example.medapp.adapters.ProductsInCategoryRecyclerAdapter;
 import com.example.medapp.models.User;
 import com.example.medapp.models.UserCard;
 import com.example.medapp.utility.InMemoryStorage;
+import com.example.medapp.utility.MyUtility;
+import com.example.medapp.utility.ServerAPIHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import java.util.ArrayList;
 
 //Класс активити для Главной/анализы
 //26.03.24
@@ -31,6 +35,7 @@ public class MainAnalysesActivity extends AppCompatActivity {
 
     private ArticleRecyclerAdapter articleAdapter;
     private ProductsInCategoryRecyclerAdapter catalogAdapter;
+    private ServerAPIHelper.APIrequestResponce getArticlesResponce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +58,18 @@ public class MainAnalysesActivity extends AppCompatActivity {
         });
 
         RecyclerView newsRV = findViewById(R.id.mainA_newsRV);
-        articleAdapter = new ArticleRecyclerAdapter(this, InMemoryStorage.articles);
+        articleAdapter = new ArticleRecyclerAdapter(this, InMemoryStorage.getArticles());
         newsRV.setAdapter(articleAdapter);
+        getArticlesResponce = (success) -> {
+            if(success){
+                newsRV.post(() -> {
+                    System.out.println("+__+_+_+_+_+_+_");
+                    articleAdapter.setData(InMemoryStorage.getArticles());
+                });
+            }
+        };
+
+        MyUtility.serverAPI.getAllArticles(getArticlesResponce);
 
         catalogAdapter = new ProductsInCategoryRecyclerAdapter(this,InMemoryStorage.categories,InMemoryStorage.products, user);
 
@@ -106,9 +121,6 @@ public class MainAnalysesActivity extends AppCompatActivity {
     //обновление данных об акциях/новостях
     private void updateData(){
         System.out.println("Обновление данных...");
-        articleAdapter.notifyDataSetChanged();
-        if(catalogAdapter != null) {
-            catalogAdapter.notifyDataSetChanged();
-        }
+        MyUtility.serverAPI.getAllArticles(getArticlesResponce);
     }
 }

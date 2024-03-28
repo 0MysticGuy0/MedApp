@@ -10,6 +10,7 @@ import com.example.medapp.activities.login.LoginActivity;
 import com.example.medapp.activities.login.RegisterActivity;
 import com.example.medapp.activities.main.MainAnalysesActivity;
 import com.example.medapp.utility.MyPasswordEncryptor;
+import com.example.medapp.utility.MyUtility;
 
 //Класс активити для главной страницы входа/регистрации
 //26.03.24
