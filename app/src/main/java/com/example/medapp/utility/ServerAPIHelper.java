@@ -88,8 +88,8 @@ public class ServerAPIHelper {
                         in.close();
 
                         ObjectMapper objectMapper = new ObjectMapper();
-                        ProductCategory[] articles = objectMapper.readValue(response.toString(), ProductCategory[].class);
-                        List<ProductCategory> res = Arrays.stream(articles).collect(Collectors.toList());
+                        ProductCategory[] categories = objectMapper.readValue(response.toString(), ProductCategory[].class);
+                        List<ProductCategory> res = Arrays.stream(categories).collect(Collectors.toList());
                         InMemoryStorage.setCategories(res);
                         responce.responced(true);
                         //System.out.println(response.toString());

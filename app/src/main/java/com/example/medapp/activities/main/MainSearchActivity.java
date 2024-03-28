@@ -8,7 +8,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.medapp.R;
+import com.example.medapp.adapters.ProductRecyclerAdapter;
 import com.example.medapp.models.User;
+import com.example.medapp.utility.InMemoryStorage;
 
 public class MainSearchActivity extends AppCompatActivity {
     public static User user = null;
@@ -23,6 +25,8 @@ public class MainSearchActivity extends AppCompatActivity {
         });
 
         RecyclerView resRV = findViewById(R.id.mainASearch_resRV);
+        ProductRecyclerAdapter adapter = new ProductRecyclerAdapter(this, InMemoryStorage.getProducts(),user,()->{});
+        resRV.setAdapter(adapter);
 
         EditText searchET = findViewById(R.id.mainASearch_searchET);
 
@@ -30,6 +34,8 @@ public class MainSearchActivity extends AppCompatActivity {
         searchBtn.setOnClickListener(v -> {
             String request = searchET.getText().toString();
             //поиск
+            adapter.setData(InMemoryStorage.getProductsByName(request));
+
         });
 
     }

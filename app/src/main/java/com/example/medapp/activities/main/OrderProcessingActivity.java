@@ -15,8 +15,10 @@ import com.example.medapp.adapters.AnalysisProductRecyclerAdapter;
 import com.example.medapp.models.Product;
 import com.example.medapp.models.User;
 import com.example.medapp.utility.InMemoryStorage;
+import com.example.medapp.utility.MyUtility;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 //Класс активити для оформления заказа(настройки анализов)
 //26.03.24
@@ -25,6 +27,7 @@ public class OrderProcessingActivity extends AppCompatActivity {
     public static User user = null;
     private List<Product> products;
     private List<Product> analyses;
+    private TextView sumPriceTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +38,14 @@ public class OrderProcessingActivity extends AppCompatActivity {
             finish();
         });
 
-        TextView sumPriceTV = findViewById(R.id.orderProcessing_sumPriceTV);
+        sumPriceTV = findViewById(R.id.orderProcessing_sumPriceTV);
+        updateSumData();
 
         initializeData();
 
         RecyclerView analysesRV = findViewById(R.id.orderProcessing_analysesRV);
-        AnalysisProductRecyclerAdapter analysisAdapter = new AnalysisProductRecyclerAdapter(this, InMemoryStorage.getProducts(),user);
+        AnalysisProductRecyclerAdapter analysisAdapter = new AnalysisProductRecyclerAdapter(this, InMemoryStorage.getProducts().stream()
+                .filter(p -> p.getCategory().getId()==1).collect(Collectors.toList()), user, () -> updateSumData());
         analysesRV.setAdapter(analysisAdapter);
 
         Button finishBtn = findViewById(R.id.orderProcessing_finishBtn);
@@ -53,5 +58,12 @@ public class OrderProcessingActivity extends AppCompatActivity {
 
     private void initializeData(){
 
+    }
+    private void updateSumData(){
+        Double sum = 0.0;
+        for(Product p: user.getShoppingCart()){
+            sum+=p.getPrice()*p.getNumber();
+        }
+        sumPriceTV.setText(MyUtility.formatDoubleToMoney(sum));
     }
 }

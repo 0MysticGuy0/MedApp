@@ -9,6 +9,7 @@ import android.widget.Button;
 import com.example.medapp.activities.login.LoginActivity;
 import com.example.medapp.activities.login.RegisterActivity;
 import com.example.medapp.activities.main.MainAnalysesActivity;
+import com.example.medapp.models.Product;
 import com.example.medapp.utility.MyPasswordEncryptor;
 import com.example.medapp.utility.MyUtility;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         Button loginBtn = findViewById(R.id.enter_loginBtn);
         loginBtn.setOnClickListener(v -> {

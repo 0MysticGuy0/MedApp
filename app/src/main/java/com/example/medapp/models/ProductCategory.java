@@ -39,4 +39,7 @@ public class ProductCategory implements Serializable {
     public static List<ProductCategory> getAllCategories(){
         return allCategories;
     }
+    public static ProductCategory getCategoryById(Long id){
+        return allCategories.stream().filter(c -> c.id.equals(id)).findFirst().orElse(null);
+    }
 }

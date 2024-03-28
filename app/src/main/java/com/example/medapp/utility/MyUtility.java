@@ -37,4 +37,8 @@ public abstract class MyUtility {
     static{
         serverAPI = new ServerAPIHelper();
     }
+
+    public interface onChangeListener{
+        void changed();
+    }
 }

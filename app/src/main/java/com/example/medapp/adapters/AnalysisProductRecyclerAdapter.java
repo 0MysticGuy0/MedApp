@@ -24,11 +24,13 @@ public class AnalysisProductRecyclerAdapter extends RecyclerView.Adapter<Analysi
     private User user;
     private final LayoutInflater inflater;
     private final List<Product> products;
+    private final MyUtility.onChangeListener onChangeListener;
 
-    public AnalysisProductRecyclerAdapter(Context context, List<Product> products, User user) {
+    public AnalysisProductRecyclerAdapter(Context context, List<Product> products, User user, MyUtility.onChangeListener onChangeListener) {
         this.products = products;
         this.inflater = LayoutInflater.from(context);
         this.user = user;
+        this.onChangeListener = onChangeListener;
     }
     @Override
     public AnalysisProductRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -45,10 +47,12 @@ public class AnalysisProductRecyclerAdapter extends RecyclerView.Adapter<Analysi
         holder.addBtn.setOnClickListener(v -> {
             user.addProduct(product);
             holder.numberTV.setText(Integer.toString(product.getNumber()));
+            onChangeListener.changed();
         });
         holder.removeBtn.setOnClickListener(v -> {
             user.removeProduct(product);
             holder.numberTV.setText(Integer.toString(product.getNumber()));
+            onChangeListener.changed();
         });
     }
 

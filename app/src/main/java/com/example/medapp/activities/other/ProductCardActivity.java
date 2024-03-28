@@ -24,6 +24,7 @@ public class ProductCardActivity extends AppCompatActivity {
     private TextView numberTV;
     private TextView categoryTV;
     private TextView priceTV;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +43,13 @@ public class ProductCardActivity extends AppCompatActivity {
 
         initializeData();
 
+
         ImageButton addBtn = findViewById(R.id.productCard_addBtn);
         addBtn.setOnClickListener(v -> {
             updateProductNumber(true);
         });
 
-        ImageButton removeBtn = findViewById(R.id.productCard_addBtn);
+        ImageButton removeBtn = findViewById(R.id.productCard_removeBtn);
         removeBtn.setOnClickListener(v -> {
             updateProductNumber(false);
         });
@@ -57,7 +59,7 @@ public class ProductCardActivity extends AppCompatActivity {
         if(product == null) throw new RuntimeException("ProductCardActivity: product==null");
         nameTV.setText(product.getName());
         extraInfoTV.setText(product.getExtraInfo());
-        numberTV.setText(product.getNumber());
+        numberTV.setText(Integer.toString(product.getNumber()));
         categoryTV.setText(product.getCategory().getName());
         priceTV.setText(MyUtility.formatDoubleToMoney(product.getPrice()));
     }
@@ -67,6 +69,6 @@ public class ProductCardActivity extends AppCompatActivity {
         }else{
             user.removeProduct(product);
         }
-        numberTV.setText(product.getNumber());
+        numberTV.setText(Integer.toString(product.getNumber()));
     }
 }

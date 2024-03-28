@@ -25,7 +25,9 @@ public class User {
     public User(Context context, String email) {
         this.email = email;
         shoppingCart = service.loadCart(context);
-        userCard = userCardService.loadCart(context).get(0);
+        List<UserCard> cards = userCardService.loadCart(context);
+        if(cards != null && cards.size()>0)
+            userCard = cards.get(0);
     }
 
     public String getEmail() {

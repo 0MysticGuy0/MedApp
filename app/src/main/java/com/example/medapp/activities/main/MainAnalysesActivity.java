@@ -15,6 +15,7 @@ import com.example.medapp.activities.other.CreateCardActivity;
 import com.example.medapp.activities.other.EditCardActivity;
 import com.example.medapp.adapters.ArticleRecyclerAdapter;
 import com.example.medapp.adapters.ProductsInCategoryRecyclerAdapter;
+import com.example.medapp.models.Product;
 import com.example.medapp.models.User;
 import com.example.medapp.models.UserCard;
 import com.example.medapp.utility.InMemoryStorage;
@@ -37,7 +38,7 @@ public class MainAnalysesActivity extends AppCompatActivity {
     private ProductsInCategoryRecyclerAdapter catalogAdapter;
     private ServerAPIHelper.APIrequestResponce getArticlesResponce;
     private ServerAPIHelper.APIrequestResponce getCategoriesResponce;
-
+    private TextView productsNumTV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,9 +57,18 @@ public class MainAnalysesActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainSearchActivity.class);
             MainSearchActivity.user = user;
             startActivity(intent);
+            finish();
         });
 
         RecyclerView newsRV = findViewById(R.id.mainA_newsRV);
+        catalogAdapter = new ProductsInCategoryRecyclerAdapter(this,InMemoryStorage.getCategories(),InMemoryStorage.getProducts(), user, () -> {
+            //обновления числа элементов возле кнопки карзины
+            int n = 0;
+            for(Product p:user.getShoppingCart()){
+                n+=p.getNumber();
+            }
+            productsNumTV.setText(Integer.toString(n));
+        });
         articleAdapter = new ArticleRecyclerAdapter(this, InMemoryStorage.getArticles());
         newsRV.setAdapter(articleAdapter);
         getArticlesResponce = (success) -> {
@@ -72,20 +82,20 @@ public class MainAnalysesActivity extends AppCompatActivity {
 
         MyUtility.serverAPI.getAllArticles(getArticlesResponce);
 
-        catalogAdapter = new ProductsInCategoryRecyclerAdapter(this,InMemoryStorage.getCategories(),InMemoryStorage.getProducts(), user);
-
         ImageButton showCatalogBtn = findViewById(R.id.mainA_showCatalogBtn);//всплывающее окно с каталогом продуктов
         showCatalogBtn.setOnClickListener(v -> {
+
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
             bottomSheetDialog.setContentView(R.layout.bottom_sheet_dialog_catalog);
             bottomSheetDialog.setCanceledOnTouchOutside(false);
 
+            productsNumTV = bottomSheetDialog.findViewById(R.id.bsdCatalog_productsNumTV);
+
             ImageButton closeBtn = bottomSheetDialog.findViewById(R.id.bsdCatalog_closeBtn);
             closeBtn.setOnClickListener(bsd_v -> {
                 bottomSheetDialog.cancel();
-                getCategoriesResponce = null;
             });
-            TextView productsNumTV = bottomSheetDialog.findViewById(R.id.bsdCatalog_productsNumTV);
+
 
             ImageButton cartBtn = bottomSheetDialog.findViewById(R.id.bsdCatalog_cartBtn);//переход в корзину
             cartBtn.setOnClickListener(bsd_btn_v -> {
@@ -98,12 +108,13 @@ public class MainAnalysesActivity extends AppCompatActivity {
             catalogRV.setAdapter(catalogAdapter);
             getCategoriesResponce = ((success) -> {
                 if(success){
-                    newsRV.post(() -> {
-                        System.out.println("+__+_+_+_+_+_+_");
-                        catalogAdapter.setData(InMemoryStorage.getCategories());
+                    catalogRV.post(() -> {
+                        System.out.println("+_+_+_+_categories_+_+_+_");
+                        catalogAdapter.setData(InMemoryStorage.getCategories(), InMemoryStorage.getProducts());
                     });
                 }
             });
+            MyUtility.serverAPI.getAllCategories(getCategoriesResponce);
 
             bottomSheetDialog.show();
         });
@@ -132,7 +143,5 @@ public class MainAnalysesActivity extends AppCompatActivity {
     private void updateData(){
         System.out.println("Обновление данных...");
         MyUtility.serverAPI.getAllArticles(getArticlesResponce);
-        if(getCategoriesResponce != null)
-            MyUtility.serverAPI.getAllCategories(getCategoriesResponce);
     }
 }
